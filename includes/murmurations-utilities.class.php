@@ -76,7 +76,11 @@ class Murmurations_Utilities{
 
     }
 
-    return $index;
+    $out = array(
+      'data' => $index
+    );
+
+    return $out;
 
   }
 }
