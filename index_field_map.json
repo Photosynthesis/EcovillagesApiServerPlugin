@@ -1,0 +1,10 @@
+{
+  "last_validated":{
+    "load_from":"post_modified",
+    "callback": "Ecovillages_API_Server::generate_last_validated"
+  },
+  "profile_url" : {
+    "load_from":"post_name",
+    "callback": "Ecovillages_API_Server::generate_profile_url"
+  }
+}
