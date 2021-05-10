@@ -15,8 +15,8 @@ add_action( 'rest_api_init',array('Ecovillages_API_Server','register_api_routes'
 
 function register_gen_taxonomies() {
     $labels = array(
-        'name'              => _x( 'Countries', 'taxonomy general name', 'textdomain' ),
-        'singular_name'     => _x( 'Genre', 'taxonomy singular name', 'textdomain' ),
+        'name'              => _x( 'Countries', 'taxonomy general name', 'gen-api-server' ),
+        'singular_name'     => _x( 'Country', 'taxonomy singular name', 'gen-api-server' ),
     );
 
     $args = array(

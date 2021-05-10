@@ -31,15 +31,8 @@ class Murmurations_Utilities{
 
 
   public static function build_index($defaults,$nodes,$map = null){
-    $props = $schema['properties'];
 
     $index = array();
-
-    $defaults = [
-      "linked_schemas" => [
-        "gen_ecovillages_v0.0.1"
-      ]
-    ];
 
     $index_fields = [
       'profile_url',

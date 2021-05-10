@@ -5,18 +5,31 @@ class Ecovillages_API_Server{
   public static $schema_file = 'gen_ecovillages_v0.0.1.json';
   public static $field_map_file = 'field_map.json';
   public static $index_field_map_file = 'index_field_map.json';
-  public static $api_base_url = 'http://localhost/TestPress4/wp-json/ecovillages/v1/';
+  public static $api_route = 'ecovillages/v1';
+
+  // TODO: set these in admin interface
+  public static $api_keys = array('JD%2js9#dflj');
 
   public static function register_api_routes(){
-    register_rest_route( 'ecovillages/v1', '/get/project/(?P<url>[a-zA-Z\-\d]+)', array(
-    'methods' => 'GET',
-    'callback' => array('Ecovillages_API_Server','get_project')
-    ) );
+    register_rest_route(
+      self::$api_route,
+      '/get/project/(?P<url>[a-zA-Z\-\d]+)',
+      array(
+        'methods' => 'GET',
+        'callback' => array('Ecovillages_API_Server','get_project'),
+        'permission_callback' => array('Ecovillages_API_Server','check_api_key')
+      )
+    );
 
-    register_rest_route( 'ecovillages/v1', '/get/index/(?P<country>[a-zA-Z\-\d]+)', array(
-    'methods' => 'GET',
-    'callback' => array('Ecovillages_API_Server','get_index'),
-    ) );
+    register_rest_route(
+      self::$api_route,
+      '/get/index/(?P<country>[a-zA-Z\-\d]+)',
+      array(
+        'methods' => 'GET',
+        'callback' => array('Ecovillages_API_Server','get_index'),
+        'permission_callback' => array('Ecovillages_API_Server','check_api_key')
+      )
+    );
 
   }
 
@@ -34,6 +47,27 @@ class Ecovillages_API_Server{
 
   }
 
+  public static function check_api_key(){
+
+    $client_key = $_SERVER["PHP_AUTH_USER"];
+
+    //$keys = get_option( 'gen_api_client_keys' );
+    $keys = self::$api_keys;
+
+    $authorized = false;
+
+    foreach ($keys as $authorized_key) {
+      if($client_key == $authorized_key){
+        $authorized = true;
+      }
+    }
+
+    if(!$authorized){
+      return new WP_Error( 'rest_forbidden', esc_html__( 'Invalid API key', 'gen-api-server' ), array( 'status' => 401 ) );
+    }else{
+      return true;
+    }
+  }
 
   public static function get_index($req){
 
@@ -47,9 +81,16 @@ class Ecovillages_API_Server{
 
     $map = self::get_index_field_map();
 
-    $json = Murmurations_Utilities::build_index(array(),$projects,$map);
+    $defaults = [
+      "linked_schemas" => [
+        "gen_ecovillages_v0.0.1"
+      ]
+    ];
 
-    return rest_ensure_response($json);
+
+    $data = Murmurations_Utilities::build_index($defaults,$projects,$map);
+
+    return rest_ensure_response($data);
 
   }
 
@@ -165,7 +206,7 @@ class Ecovillages_API_Server{
   }
 
   public static function generate_profile_url($post_name){
-    return self::$api_base_url."get/project/".$post_name;
+    return get_rest_url().self::$api_route."/get/project/".$post_name;
   }
 
   public static function generate_last_validated($date){
