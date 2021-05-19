@@ -132,6 +132,8 @@ class Ecovillages_API_Server{
 
     $project = array_merge($taxes,$project);
 
+    $project['profile_url'] = self::generate_profile_url($url);
+
     return $project;
   }
 
