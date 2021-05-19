@@ -23,7 +23,7 @@ class Ecovillages_API_Server{
 
     register_rest_route(
       self::$api_route,
-      '/get/index/(?P<country>[a-zA-Z\-\d]+)',
+      '/get/index',
       array(
         'methods' => 'GET',
         'callback' => array('Ecovillages_API_Server','get_index'),
@@ -147,6 +147,16 @@ class Ecovillages_API_Server{
       'posts_per_page' => -1
     );
 
+    if($parameters['gen_region']){
+      $args['tax_query'] = [
+        [
+            'taxonomy' => 'gen_region',
+            'field'    => 'name',
+            'terms'    => array($parameters['gen_region'])
+        ]
+      ];
+    }
+
     if($parameters['country']){
       $args['tax_query'] = [
         [
@@ -176,7 +186,6 @@ class Ecovillages_API_Server{
 
   public static function get_schema(){
     $schema_file = plugin_dir_path(__DIR__) .'schemas/'.self::$schema_file;
-    // gen_ecovillages_v0.0.1.json';
     $schema_json = file_get_contents($schema_file);
     $schema = json_decode($schema_json,true);
     return $schema;
