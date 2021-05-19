@@ -13,20 +13,5 @@ require_once plugin_dir_path( __FILE__ ) .'includes/murmurations-utilities.class
 add_action( 'rest_api_init',array('Ecovillages_API_Server','register_api_routes'));
 
 
-function register_gen_taxonomies() {
-    $labels = array(
-        'name'              => _x( 'Countries', 'taxonomy general name', 'gen-api-server' ),
-        'singular_name'     => _x( 'Country', 'taxonomy singular name', 'gen-api-server' ),
-    );
-
-    $args = array(
-        'labels'            => $labels,
-        'rewrite'           => array( 'slug' => 'country' ),
-    );
-
-    register_taxonomy( 'gen_country', array( 'gen_project' ), $args );
-
-}
-add_action( 'init', 'register_gen_taxonomies', 0 );
 
 ?>
