@@ -47,17 +47,21 @@ class Ecovillages_API_Server{
 
   }
 
+  public static function get_option($option){
+    $options = get_option( 'ecovillage_api_server_options' );
+    return $options[$option];
+  }
+
   public static function check_api_key(){
 
     $client_key = $_SERVER["PHP_AUTH_USER"];
 
-    //$keys = get_option( 'gen_api_client_keys' );
-    $keys = self::$api_keys;
+    $keys = self::get_option('api_keys');
 
     $authorized = false;
 
     foreach ($keys as $authorized_key) {
-      if($client_key == $authorized_key){
+      if($client_key == $authorized_key['key']){
         $authorized = true;
       }
     }
@@ -222,6 +226,76 @@ class Ecovillages_API_Server{
 
   public static function generate_last_validated($date){
     return strtotime($date);
+  }
+
+  public static function settings_page(){
+
+    if (isset($_POST['ecovillage_api_server_options'])) {
+      check_admin_referer( 'ecovillage_api_server_admin_form');
+      $update_options = array();
+      $option_value = json_decode( stripslashes($_POST['ecovillage_api_server_options']), true);
+      update_option('ecovillage_api_server_options',$option_value);
+    }
+
+    $option_values = get_option('ecovillage_api_server_options');
+    $current_values_json = json_encode($option_values);
+
+   ?>
+   <form method="post" id="gen_api_settings_form">
+   <?php wp_nonce_field( 'ecovillage_api_server_admin_form' ); ?>
+   <input type="hidden" id="gen_api_settings_input" name="ecovillage_api_server_options" />
+   </form>
+
+   <form>
+     <div id="settings_fields_container"></div>
+     <button id='submit'>Save</button>
+   </form>
+   <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
+   <script>
+     var options = {
+       disable_array_delete_all_rows: true,
+       disable_array_delete_last_row: true,
+       disable_array_reorder: true,
+       disable_collapse: true,
+       disable_edit_json: true,
+       disable_properties: true,
+       startval: JSON.parse(<?= json_encode($current_values_json) ?>),
+       schema: {
+         type: "object",
+         title : "Settings",
+         properties : {
+           api_keys: {
+             type: "array",
+             format: "table",
+             title: "API Keys",
+             items: {
+               type: "object",
+               title: "Key",
+               properties: {
+                 name: {
+                   type : "string",
+                   title: "Name"
+                 },
+                 key:{
+                   type : "string",
+                   title : "Key"
+                 }
+               }
+             }
+           }
+         }
+       }
+     };
+     var editor = new JSONEditor(document.getElementById('settings_fields_container'),options);
+
+     document.getElementById('submit').addEventListener('click',function(event) {
+       event.preventDefault();
+       document.getElementById('gen_api_settings_input').value = JSON.stringify(editor.getValue());
+       var settings_form = document.getElementById("gen_api_settings_form");
+       settings_form.submit();
+     });
+     </script>
+  <?php
   }
 }
 

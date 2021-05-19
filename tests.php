@@ -11,6 +11,12 @@ if($_GET['test'] && method_exists('GEN_API_Tests',$_GET['test'])){
 
 class GEN_API_Tests{
 
+  public static function check_api_key(){
+    $_SERVER["PHP_AUTH_USER"] = 'JD%2js9#dflj';
+    $i = Ecovillages_API_Server::check_api_key();
+    self::print($i,"Check API key");
+  }
+
   public static function get_index(){
     $i = Ecovillages_API_Server::get_index(array('country'=>'Canada'));
     self::print($i,"Index");
