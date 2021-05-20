@@ -26,8 +26,8 @@ class GEN_API_Tests{
     self::print($i,"Check API key");
   }
 
-  public static function get_index(){
-    $i = Ecovillages_API_Server::get_index(array('country'=>'Canada'));
+  public static function get_index($country = 'Canada'){
+    $i = Ecovillages_API_Server::get_index(array('country'=>$country));
     self::print($i,"Index");
   }
 

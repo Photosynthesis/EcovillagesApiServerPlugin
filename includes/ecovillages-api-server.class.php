@@ -35,15 +35,20 @@ class Ecovillages_API_Server{
 
   public static function get_project($req){
 
-    $project = self::load_project((string)$req['url']);
+    $project = self::load_project($req['url']);
 
-    $schema = self::get_schema();
+    if(!$project){
+      $result = new WP_Error('gen_api_project_not_found', "No project exists with this URL", array( 'status' => 404 ));
+    }else{
+      $schema = self::get_schema();
 
-    $map = self::get_field_map();
+      $map = self::get_field_map();
 
-    $json = Murmurations_Utilities::build_profile($schema,$project,$map);
+      $result = Murmurations_Utilities::build_profile($schema,$project,$map);
 
-    return rest_ensure_response($json);
+    }
+
+    return rest_ensure_response($result);
 
   }
 
@@ -75,26 +80,32 @@ class Ecovillages_API_Server{
 
   public static function get_index($req){
 
-    $projects_p = self::load_project_list($req);
+    $project_posts = self::load_project_list($req);
 
-    $projects = array();
+    if(is_wp_error($project_posts)){
 
-    foreach ($projects_p as $p) {
-      $projects[] = $p->to_array();
+      $result = $project_posts;
+
+    }else{
+
+      $projects = array();
+
+      foreach ($project_posts as $p) {
+        $projects[] = $p->to_array();
+      }
+
+      $map = self::get_index_field_map();
+
+      $defaults = [
+        "linked_schemas" => [
+          "gen_ecovillages_v0.0.1"
+        ]
+      ];
+
+      $result = Murmurations_Utilities::build_index($defaults,$projects,$map);
     }
 
-    $map = self::get_index_field_map();
-
-    $defaults = [
-      "linked_schemas" => [
-        "gen_ecovillages_v0.0.1"
-      ]
-    ];
-
-
-    $data = Murmurations_Utilities::build_index($defaults,$projects,$map);
-
-    return rest_ensure_response($data);
+    return rest_ensure_response($result);
 
   }
 
