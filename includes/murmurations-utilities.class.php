@@ -62,7 +62,10 @@ class Murmurations_Utilities{
           $value = $defaults[$field];
         }
 
-        $index_node_data[$field] = $value;
+        if($value){
+          $index_node_data[$field] = $value;
+        }
+
       }
 
       $index[] = $index_node_data;
