@@ -241,16 +241,30 @@ class Ecovillages_API_Server{
     $current_values_json = json_encode($option_values);
 
    ?>
-   <form method="post" id="gen_api_settings_form">
-   <?php wp_nonce_field( 'ecovillage_api_server_admin_form' ); ?>
-   <input type="hidden" id="gen_api_settings_input" name="ecovillage_api_server_options" />
-   </form>
+   <div class="wrap">
+     <h1 class="wp-heading-inline">Ecovillage API Server</h1>
 
-   <form>
-     <div id="settings_fields_container"></div>
-     <button id='submit'>Save</button>
-   </form>
+     <form method="post" id="gen_api_settings_form">
+       <?php wp_nonce_field( 'ecovillage_api_server_admin_form' ); ?>
+       <input type="hidden" id="gen_api_settings_input" name="ecovillage_api_server_options" />
+     </form>
+
+     <form>
+       <div id="settings_fields_container"></div>
+       <input type="submit" id="submit" value="Save Settings" class="button button-primary button-large" style="margin-top:3em">
+     </form>
+   </div>
+
+   <style type="text/css">
+   .je-indented-panel {
+      padding-left: 0;
+      margin-left: 0;
+      border-left: 0;
+    }
+   </style>
+
    <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
+
    <script>
      var options = {
        disable_array_delete_all_rows: true,
@@ -259,6 +273,7 @@ class Ecovillages_API_Server{
        disable_collapse: true,
        disable_edit_json: true,
        disable_properties: true,
+       theme: 'barebones',
        startval: JSON.parse(<?= json_encode($current_values_json) ?>),
        schema: {
          type: "object",
@@ -286,6 +301,7 @@ class Ecovillages_API_Server{
          }
        }
      };
+
      var editor = new JSONEditor(document.getElementById('settings_fields_container'),options);
 
      document.getElementById('submit').addEventListener('click',function(event) {
