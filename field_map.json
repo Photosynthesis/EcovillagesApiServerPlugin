@@ -8,6 +8,12 @@
   "last_validated":{
     "load_from":"post_modified"
   },
+  "project_types":{
+    "load_from":"gen_project_type"
+  },
+  "community_types":{
+    "load_from":"gen_community_type"
+  },
   "geolocation" : {
     "load_from":"gen_lat_lng",
     "callback": "Ecovillages_API_Server::process_coordinates"
@@ -24,5 +30,22 @@
   },
   "languages_spoken" : {
     "load_from":"gen_language"
+  },
+  "visitors_accepted" : {
+    "load_from":"gen_visitors",
+    "callback": "Ecovillages_API_Server::reduce_array"
+  },
+  "new_members_accepted" : {
+    "load_from":"gen_new_members",
+    "callback": "Ecovillages_API_Server::reduce_array"
+  },
+  "project_status" : {
+    "load_from":"gen_evolution"
+  },
+  "gen_project_gen_status": {
+    "callback": "Ecovillages_API_Server::reduce_array"
+  },
+  "gen_sustainability_dimensions" : {
+    "load_from":"gen_sust_dimension"
   }
 }

@@ -8,9 +8,14 @@ if(!current_user_can('manage_options')) {
   die("Permission denied");
 }
 
-if($_GET['test'] && method_exists('GEN_API_Tests',$_GET['test'])){
-  $f = $_GET['test'];
-  GEN_API_Tests::$f();
+if($_GET['t'] && method_exists('GEN_API_Tests',$_GET['t'])){
+  $f = $_GET['t'];
+  if($_GET['p']){
+    $p = $_GET['p'];
+    GEN_API_Tests::$f($p);
+  }else{
+    GEN_API_Tests::$f();
+  }
 }
 
 class GEN_API_Tests{
@@ -41,8 +46,8 @@ class GEN_API_Tests{
     self::print($p,"Map");
   }
 
-  public static function get_project(){
-    $p = Ecovillages_API_Server::get_project(array('url'=>'tamera-0'));
+  public static function get_project($url = 'tamera-0'){
+    $p = Ecovillages_API_Server::get_project(array('url'=>$url));
     self::print($p,"Project");
   }
 
