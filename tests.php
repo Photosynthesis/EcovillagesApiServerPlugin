@@ -1,8 +1,12 @@
 <?php
+error_reporting (E_ALL);
+ini_set('dispay_errors', true);
 define('WP_USE_THEMES', false);
-
 $base = dirname(dirname(__FILE__));
-require($base.'../../../wp-load.php');
+require($base.'/../../wp-load.php');
+if(!current_user_can('manage_options')) {
+  die("Permission denied");
+}
 
 if($_GET['test'] && method_exists('GEN_API_Tests',$_GET['test'])){
   $f = $_GET['test'];
@@ -59,6 +63,7 @@ class GEN_API_Tests{
   }
 
   public static function meta_stats(){
+    $threshold = 2;
     global $wpdb;
     $sql = "SELECT ID, post_name FROM wp_posts WHERE post_type = 'gen_project'";
     //AND ID = 3742";
@@ -72,22 +77,19 @@ class GEN_API_Tests{
     foreach ($posts as $p) {
       $p_meta_stats = array();
       $meta = get_post_meta($p['ID']);
-      //echo "<pre>Meta: ".print_r($p,true);
       foreach ($meta as $key => $value) {
         $num_metas_checked++;
         $p_meta_stats[$key] = count($value);
       }
-      //echo "<pre>".print_r($p_meta_stats,true);
       foreach ($p_meta_stats as $key => $num) {
-        if($num > 1){
+        if($num > ($threshold - 1)){
           $meta_stats[$key][$p['post_name']] = $num;
         }
       }
     }
 
-    echo "<pre>Meta stats: ".print_r($meta_stats, true);
-    echo "Checked: ".$num_metas_checked;
-
+    self::print($meta_stats,"Meta stats");
+    self::print($num_metas_checked,"Metas checked");
 
   }
 
@@ -99,9 +101,8 @@ class GEN_API_Tests{
 
     $all_data = array();
 
-    echo "<pre>";
     $post = get_post($id,ARRAY_A);
-    echo "Post" . print_r($post,true);
+    self::print($post,"Post");
 
     $meta = get_post_meta($id);
     foreach ($meta as $key_1 => $value_a) {
@@ -110,7 +111,7 @@ class GEN_API_Tests{
       }
     }
 
-    echo "Meta: " . print_r($meta,true);
+    self::print($meta,"Meta");
 
     $sql = "SELECT t.*, tt.*
     FROM wp_posts AS p
@@ -127,9 +128,8 @@ class GEN_API_Tests{
       $taxes[$tax['taxonomy']][] = $tax['name'];
     }
 
-    echo "Terms: " . print_r($taxonomies,true);
-
-    echo "Reshaped: " . print_r($taxes,true);
+    self::print($taxonomies,"Terms");
+    self::print($taxes,"Reshaped");
 
   }
 
@@ -137,7 +137,7 @@ class GEN_API_Tests{
     echo "<pre>";
     echo $name ? $name.": " : "";
     echo (is_array($out) || is_object($out)) ? print_r((array)$out,true) : $out;
-
+    echo "</pre>";
   }
 
 
