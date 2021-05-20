@@ -7,9 +7,6 @@ class Ecovillages_API_Server {
 	public static $index_field_map_file = 'index_field_map.json';
 	public static $api_route            = 'ecovillages/v1';
 
-	// TODO: set these in admin interface
-	public static $api_keys = array( 'JD%2js9#dflj' );
-
 	public static function register_api_routes() {
 		register_rest_route(
 			self::$api_route,
@@ -113,15 +110,21 @@ class Ecovillages_API_Server {
 
 		global $wpdb;
 
-		$sql = "SELECT * FROM $wpdb->posts WHERE post_name = '$url'";
+    $args = array(
+      'post_type'      => 'gen_project',
+      'post_status'    => 'publish',
+      'name'           => $url
+    );
 
-		$result = $wpdb->get_results( $sql, ARRAY_A );
+    $query = new WP_Query( $args );
 
-		if ( count( $result ) < 1 ) {
+    $results = $query->get_posts();
+
+		if ( count( $results ) < 1 ) {
 			return false;
 		}
 
-		$project = $result[0];
+		$project = $results[0]->to_array();
 
 		$metas = get_post_meta( $project['ID'] );
 
