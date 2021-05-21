@@ -189,9 +189,9 @@ class Ecovillages_API_Server {
 			$args['date_query'] = array(
 				'column' => 'post_modified',
 				'after'  => array(
-					'year'  => date( 'Y', strtotime( $parameters['last_validated'] ) ),
-					'month' => date( 'm', strtotime( $parameters['last_validated'] ) ),
-					'day'   => date( 'j', strtotime( $parameters['last_validated'] ) ),
+					'year'  => date( 'Y', $parameters['last_validated'] ),
+					'month' => date( 'm', $parameters['last_validated'] ),
+					'day'   => date( 'j', $parameters['last_validated'] ),
 				),
 			);
 		}
