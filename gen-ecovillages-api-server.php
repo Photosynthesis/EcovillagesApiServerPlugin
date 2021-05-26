@@ -23,11 +23,18 @@ function ecovillage_api_server_settings_page() {
 		'function'   => array( 'Ecovillages_API_Server', 'settings_page' ),
 	);
 
-	add_menu_page( $args['page_title'], $args['menu_title'], $args['capability'], $args['menu_slug'], $args['function'] );
+	$settings_page = add_menu_page( $args['page_title'], $args['menu_title'], $args['capability'], $args['menu_slug'], $args['function'] );
 
+  add_action( 'load-' . $settings_page, function() {
+    add_action( 'admin_enqueue_scripts', function() {
+      wp_enqueue_script(
+        'ecovillage-api-json-editor',
+        'https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js'
+      );
+      wp_enqueue_style( 'ecovillage-api-admin-styles', plugins_url( 'css/ecovillage-api-admin-styles.css', __FILE__ ) );
+    } );
+  } );
 }
 
 
 add_action( 'admin_menu', 'ecovillage_api_server_settings_page' );
-
-
