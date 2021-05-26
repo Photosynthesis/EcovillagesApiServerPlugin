@@ -251,9 +251,13 @@ class Ecovillages_API_Server {
 			update_option( 'ecovillage_api_server_options', $option_value );
 		}
 
-		$option_values       = get_option( 'ecovillage_api_server_options', "{}" );
+		$option_values       = get_option( 'ecovillage_api_server_options');
 
-		$current_values_json = json_encode( $option_values );
+    if ( $option_values ) {
+      $current_values_json = json_encode( $option_values );
+    } else {
+      $current_values_json = false;
+    }
 
 		?>
    <div class="wrap">
@@ -279,7 +283,14 @@ class Ecovillages_API_Server {
 	   disable_edit_json: true,
 	   disable_properties: true,
 	   theme: 'barebones',
-	   startval: JSON.parse(<?php echo json_encode( $current_values_json ); ?>),
+     <?php
+     // JSON-editor doesn't handle empty starval objects well. https://github.com/json-editor/json-editor/issues/998.
+     if($current_values_json){
+       ?>
+       startval: JSON.parse('<?php echo $current_values_json ?>'),
+       <?php
+     }
+     ?>
 	   schema: {
 		 type: "object",
 		 title : "Settings",
