@@ -48,6 +48,11 @@ class Ecovillages_API_Server {
 
 		}
 
+    // Deal with PHP notices or other extraneous output
+    if( ob_get_length() ){
+      ob_clean();
+    }
+
 		return rest_ensure_response( $result );
 
 	}
@@ -115,6 +120,11 @@ class Ecovillages_API_Server {
 
 			$result = Murmurations_Utilities::build_index( $defaults, $projects, $map );
 		}
+
+    // Deal with PHP notices or other extraneous output
+    if( ob_get_length() ){
+      ob_clean();
+    }
 
 		return rest_ensure_response( $result );
 
