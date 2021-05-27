@@ -6,8 +6,10 @@ Description: Provide GEN project data for regional network websites
 Version: 0.0.1
 */
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/ecovillages-api-server.class.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/murmurations-utilities.class.php';
+define( 'ECOVILLAGE_API_PATH', plugin_dir_path( __FILE__ ) );
+
+require_once ECOVILLAGE_API_PATH . 'includes/ecovillages-api-server.class.php';
+require_once ECOVILLAGE_API_PATH . 'includes/murmurations-utilities.class.php';
 
 add_action( 'rest_api_init', array( 'Ecovillages_API_Server', 'register_api_routes' ) );
 
