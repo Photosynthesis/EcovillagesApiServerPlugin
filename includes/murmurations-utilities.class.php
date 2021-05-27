@@ -11,15 +11,22 @@ class Murmurations_Utilities {
 		$profile = array();
 
 		foreach ( $props as $name => $attribs ) {
-			if ( $map[ $name ]['load_from'] ) {
-				$value = $data[ $map[ $name ]['load_from'] ];
-			} else {
+
+      $value = null;
+
+			if ( isset( $map[ $name ]['load_from'] ) ) {
+        if ( isset( $data[ $map[ $name ]['load_from'] ] ) ){
+          $value = $data[ $map[ $name ]['load_from'] ];
+        }
+			} else if ( isset( $data[ $name ] ) ) {
 				$value = $data[ $name ];
 			}
 
-			if ( $map[ $name ] && $value ) {
-				if ( $map[ $name ]['callback'] && is_callable( $map[ $name ]['callback'] ) ) {
-					$value = call_user_func( $map[ $name ]['callback'], $value, $name );
+			if ( isset( $map[ $name ] ) && $value ) {
+				if ( isset( $map[ $name ]['callback'] ) ) {
+          if ( is_callable( $map[ $name ]['callback'] ) ) {
+  					$value = call_user_func( $map[ $name ]['callback'], $value, $name );
+          }
 				}
 			}
 			$profile[ $name ] = $value;
@@ -46,19 +53,25 @@ class Murmurations_Utilities {
 			$index_node_data = array();
 			foreach ( $index_fields as $field ) {
 
-				if ( $map[ $field ]['load_from'] ) {
-					$value = $node[ $map[ $field ]['load_from'] ];
-				} else {
+        $value = null;
+
+				if ( isset ( $map[ $field ]['load_from'] ) ) {
+          if ( isset ( $node[ $map[ $field ]['load_from'] ] ) ){
+            $value = $node[ $map[ $field ]['load_from'] ];
+          }
+				} else if ( isset ( $node[ $field ] ) ){
 					$value = $node[ $field ];
 				}
 
-				if ( $map[ $field ] && $value ) {
-					if ( $map[ $field ]['callback'] && is_callable( $map[ $field ]['callback'] ) ) {
-						$value = call_user_func( $map[ $field ]['callback'], $value, $field );
-					}
+				if ( isset( $map[ $field ] ) && $value ) {
+          if ( isset( $map[ $field ]['callback'] ) ) {
+  					if ( is_callable( $map[ $field ]['callback'] ) ) {
+  						$value = call_user_func( $map[ $field ]['callback'], $value, $field );
+  					}
+          }
 				}
 
-				if ( ! $value && $defaults[ $field ] ) {
+				if ( ! $value && isset( $defaults[ $field ] ) ) {
 					$value = $defaults[ $field ];
 				}
 
@@ -79,5 +92,3 @@ class Murmurations_Utilities {
 
 	}
 }
-
-

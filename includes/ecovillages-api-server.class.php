@@ -179,7 +179,7 @@ class Ecovillages_API_Server {
 			'posts_per_page' => -1,
 		);
 
-		if ( $parameters['gen_region'] ) {
+		if ( isset( $parameters['gen_region'] ) ) {
 			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'gen_region',
@@ -189,7 +189,7 @@ class Ecovillages_API_Server {
 			);
 		}
 
-		if ( $parameters['country'] ) {
+		if ( isset( $parameters['country'] ) ) {
 			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'gen_country',
@@ -199,7 +199,7 @@ class Ecovillages_API_Server {
 			);
 		}
 
-		if ( $parameters['last_validated'] ) {
+		if ( isset( $parameters['last_validated'] ) ) {
 			$args['date_query'] = array(
 				'column' => 'post_modified',
 				'after'  => array(
