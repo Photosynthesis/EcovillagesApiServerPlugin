@@ -1,5 +1,5 @@
 <?php
-error_reporting( E_ALL );
+error_reporting( E_ERROR | E_WARNING | E_PARSE | E_NOTICE );
 ini_set( 'dispay_errors', true );
 define( 'WP_USE_THEMES', false );
 $base = dirname( dirname( __FILE__ ) );
@@ -20,9 +20,14 @@ if ( $_GET['t'] && method_exists( 'GEN_API_Tests', $_GET['t'] ) ) {
 
 class GEN_API_Tests {
 
+  public static function log_write($message = "Test log message"){
+    self::print( Ecovillages_API_Server::log( $message ), "Log result" );
+  }
+
 	public static function check_api_key() {
-		$_SERVER['PHP_AUTH_USER'] = 'JD%2js9#dflj';
-		$i                        = Ecovillages_API_Server::check_api_key();
+		//$_SERVER['PHP_AUTH_USER'] = 'test_key';
+    $req = array('api_key' => 'test_key');
+		$i                        = Ecovillages_API_Server::check_api_key( $req );
 		self::print( $i, 'Check API key' );
 	}
 
@@ -147,4 +152,3 @@ class GEN_API_Tests {
 
 
 }
-

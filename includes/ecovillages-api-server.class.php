@@ -6,6 +6,9 @@ class Ecovillages_API_Server {
 	public static $field_map_file       = 'field_map.json';
 	public static $index_field_map_file = 'index_field_map.json';
 	public static $api_route            = 'ecovillages/v1';
+  public static $log_file             =  ECOVILLAGE_API_PATH . 'logs/ecovillage_api.log';
+  public static $no_log_append        =  true;
+  public static $log_buffer           =  "";
 
 	public static function register_api_routes() {
 		register_rest_route(
@@ -14,7 +17,7 @@ class Ecovillages_API_Server {
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( 'Ecovillages_API_Server', 'get_project' ),
-				'permission_callback' => array( 'Ecovillages_API_Server', 'check_api_key' ),
+  				'permission_callback' => array( 'Ecovillages_API_Server', 'check_api_key' ),
 			)
 		);
 
@@ -54,9 +57,16 @@ class Ecovillages_API_Server {
 		return $options[ $option ];
 	}
 
-	public static function check_api_key() {
+	public static function check_api_key( $request = null ) {
 
-		$client_key = $_SERVER['PHP_AUTH_USER'];
+    if ( isset( $request['api_key'] ) ) {
+      $client_key = $request['api_key'];
+    } else if ( isset( $_SERVER['PHP_AUTH_USER'] ) ) {
+      $client_key = $_SERVER['PHP_AUTH_USER'];
+    } else {
+      self::log( "Request is missing API key" );
+      return new WP_Error( 'rest_forbidden', esc_html__( 'No API key provided', 'gen-api-server' ), array( 'status' => 401 ) );
+    }
 
 		$keys = self::get_option( 'api_keys' );
 
@@ -76,6 +86,8 @@ class Ecovillages_API_Server {
 	}
 
 	public static function get_index( $req ) {
+
+    self::log( "Index request: " . $_SERVER['REMOTE_ADDR'] );
 
 		$project_posts = self::load_project_list( $req );
 
@@ -98,6 +110,8 @@ class Ecovillages_API_Server {
 					'gen_ecovillages_v0.0.1',
 				),
 			);
+
+      self::log( count( $projects ) . " projects found" );
 
 			$result = Murmurations_Utilities::build_index( $defaults, $projects, $map );
 		}
@@ -241,6 +255,24 @@ class Ecovillages_API_Server {
 	public static function generate_last_validated( $date ) {
 		return strtotime( $date );
 	}
+
+  public static function log( $content , $meta = null ) {
+    $log = date( DATE_ATOM ) . " ";
+    $log .= $meta ? $meta . ': ' : '';
+    $log .=  ( is_array( $content ) || is_object( $content ) ) ? print_r( (array) $content, true ) : $content;
+    if ( is_writable( self::$log_file ) ) {
+      if ( self::$no_log_append ){
+        $flag = null;
+        self::$log_buffer .= $log . "\n";
+        $log = self::$log_buffer;
+      } else {
+        $flag = FILE_APPEND;
+      }
+      return file_put_contents( self::$log_file, $log . "\n", $flag );
+    } else {
+      return "Log file is not writable: " . self::$log_file;
+    }
+  }
 
 	public static function settings_page() {
 
