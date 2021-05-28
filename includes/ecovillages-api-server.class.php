@@ -7,6 +7,7 @@ class Ecovillages_API_Server {
 	public static $index_field_map_file = 'index_field_map.json';
 	public static $api_route            = 'ecovillages/v1';
   public static $log_file             =  ECOVILLAGE_API_PATH . 'logs/ecovillage_api.log';
+  public static $project_base_url     = 'https://www.ecovillage.org/project/';
   public static $no_log_append        =  true;
   public static $log_buffer           =  "";
 
@@ -175,6 +176,8 @@ class Ecovillages_API_Server {
 		$project = array_merge( $taxes, $project );
 
 		$project['profile_url'] = self::generate_profile_url( $url );
+
+    $project['gen_project_url'] = self::$project_base_url.$project['post_name'];
 
 		return $project;
 	}
