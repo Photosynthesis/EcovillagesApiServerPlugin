@@ -170,7 +170,7 @@
       "items": {
         "type":"string",
         "enum": [
-          "agree"
+          "agreeterms"
         ],
         "enumNames":[
           "I agree to these terms"
