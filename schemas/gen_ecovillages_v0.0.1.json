@@ -4,306 +4,553 @@
   "title": "GEN Ecovillages",
   "description": "Ecovillage projects in the Global Ecovillage Network.",
   "type": "object",
-  "properties": {
-    "name": {
-      "title": "Title",
-      "description": "The name of the ecovillage",
-      "type": "string"
-    },
-    "_subtitle":{
-      "title": "Mission Statement, Subtitle or Focus",
-      "description": "Brief statement which most accurately summarizes your group's primary purpose and\/or focus. (maximum 100 characters)",
-      "type": "string",
-      "maxLength": 100
-    },
-    "gen_post_content":{
-      "title": "Community Description",
-      "description": "Share about your community! Here you can include your origin story, your group's principles and purpose and what you aspire to together. Be mindful that questions below may address many details. (maximum 2,000 characters)",
-      "type": "string",
-      "maxLength": 2000
-    },
-    "gen_post_excerpt":{
-      "title": "Summary",
-      "description": "A brief summary of the project, used when multiple projects are listed on one page. (maximum 400 characters)",
-      "type":"string",
-      "maxLength": 400
-    },
-    "gen_tax_post_language":{
-      "title": "Project Listing Language",
-      "description": "Language this entry is written in.",
-      "type":"array",
-      "items": {
-        "type":"string",
-        "enum": [
-          "arabic",
-          "catalan",
-          "english",
-          "french",
-          "german",
-          "japanes",
-          "portuguese",
-          "russian",
-          "spanish",
-          "undefined"
-        ],
-        "enumNames": [
-          "Arabic",
-          "Catalan",
-          "English",
-          "French",
-          "German",
-          "Japanes",
-          "Portuguese",
-          "Russian",
-          "Spanish",
-          "Undefined"
-        ]
-      }
-    },
-    "gen_tax_community_type":{
-      "title": "Community Type",
-      "description": "How does your community identify itself? (Select up to 5 options or select “Unspecified, Other” if none apply)",
-      "type":"array",
-      "items": {
-        "type":"string",
-        "enum": [
-          "network",
-          "ecovillage",
-           "religious",
-           "intentional",
-           "traditional",
-           "indigenous",
-           "ecocity",
-           "ecocomun",
-           "ecopro",
-             "perma",
-             "green",
-             "learning",
-             "restorante",
-             "ecotour",
-             "youth",
-             "ecofarm",
-             "other",
-           "holistic",
-           "transition",
-           "cohousing",
-           "shared",
-           "unspecified"
-        ],
-        "enumNames": [
-          "Network of Ecovillage",
-          "Ecovillage",
-           "Religious or Spiritual",
-           "Intentional",
-          "Traditional",
-          "Indigenous",
-          "Eco City",
-          "Eco Community",
-          "Eco Project",
-          "Permaculture Project",
-          "Green School",
-          "Learning Centre",
-          "Restoration Site",
-          "Eco Tourism Site",
-          "Youth-led Project",
-          "Eco Farm",
-          "Other",
-          "Holistic Center",
-          "Transition Town",
-          "Cohousing",
-          "Shared Housing",
-          "Unspecified, Other"
-        ]
-
-      },
-      "uniqueItems": true
-    },
-    "gen_tax_community_setting":{
-      "title": "Community Setting",
-      "description": "Is your community's location primarily:",
-      "type":"array",
-      "items": {
-        "type":"string",
-        "enum": [
-          "rural",
-          "urban",
-          "nomadic"
-        ],
-        "enumNames": [
-          "Rural",
-          "Urban",
-          "Nomadic"
-        ]
-      },
-      "uniqueItems": true
-    },
-    "gen_lat_lng":{
-      "title": "Location",
-      "description": "Click on the map to set a pointer to the location of this project. You can zoom the map in\/out and\/or search for the location in the search field. Please be as precise as possible.",
-      "type":"array"
-    },
-    "gen_emails":{
-      "title": "Contact email addresses",
-      "description": "Click the button below to add email addresses. If you enter more than one email address, the first will be considered your primary contact email.",
-      "type": "array",
-      "items": {
-        "type":"object",
-        "title": "email",
-        "properties": {
-          "typeof":{
+  "items":[
+    {
+      "title": "Basic Information",
+      "properties": {
+        "name": {
+          "title": "Title",
+          "description": "The name of the ecovillage",
+          "type": "string"
+        },
+        "_subtitle":{
+          "title": "Mission Statement, Subtitle or Focus",
+          "description": "Brief statement which most accurately summarizes your group's primary purpose and\/or focus. (maximum 100 characters)",
+          "type": "string",
+          "maxLength": 100
+        },
+        "gen_post_content":{
+          "title": "Community Description",
+          "description": "Share about your community! Here you can include your origin story, your group's principles and purpose and what you aspire to together. Be mindful that questions below may address many details. (maximum 2,000 characters)",
+          "type": "string",
+          "maxLength": 2000
+        },
+        "gen_post_excerpt":{
+          "title": "Summary",
+          "description": "A brief summary of the project, used when multiple projects are listed on one page. (maximum 400 characters)",
+          "type":"string",
+          "maxLength": 400
+        },
+        "gen_tax_post_language":{
+          "title": "Project Listing Language",
+          "description": "Language this entry is written in.",
+          "type":"array",
+          "items": {
             "type":"string",
-            "title": "Type",
-            "description": "Bookings, information, general, etc."
+            "enum": [
+              "arabic",
+              "catalan",
+              "english",
+              "french",
+              "german",
+              "japanes",
+              "portuguese",
+              "russian",
+              "spanish",
+              "undefined"
+            ],
+            "enumNames": [
+              "Arabic",
+              "Catalan",
+              "English",
+              "French",
+              "German",
+              "Japanes",
+              "Portuguese",
+              "Russian",
+              "Spanish",
+              "Undefined"
+            ]
+          }
+        },
+        "gen_tax_community_type":{
+          "title": "Community Type",
+          "description": "How does your community identify itself? (Select up to 5 options or select “Unspecified, Other” if none apply)",
+          "type":"array",
+          "items": {
+            "type":"string",
+            "enum": [
+              "network",
+              "ecovillage",
+               "religious",
+               "intentional",
+               "traditional",
+               "indigenous",
+               "ecocity",
+               "ecocomun",
+               "ecopro",
+                 "perma",
+                 "green",
+                 "learning",
+                 "restorante",
+                 "ecotour",
+                 "youth",
+                 "ecofarm",
+                 "other",
+               "holistic",
+               "transition",
+               "cohousing",
+               "shared",
+               "unspecified"
+            ],
+            "enumNames": [
+              "Network of Ecovillage",
+              "Ecovillage",
+               "Religious or Spiritual",
+               "Intentional",
+              "Traditional",
+              "Indigenous",
+              "Eco City",
+              "Eco Community",
+              "Eco Project",
+              "Permaculture Project",
+              "Green School",
+              "Learning Centre",
+              "Restoration Site",
+              "Eco Tourism Site",
+              "Youth-led Project",
+              "Eco Farm",
+              "Other",
+              "Holistic Center",
+              "Transition Town",
+              "Cohousing",
+              "Shared Housing",
+              "Unspecified, Other"
+            ]
+    
+          },
+          "uniqueItems": true
+        },
+        "gen_tax_community_setting":{
+          "title": "Community Setting",
+          "description": "Is your community's location primarily:",
+          "type":"array",
+          "items": {
+            "type":"string",
+            "enum": [
+              "rural",
+              "urban",
+              "nomadic"
+            ],
+            "enumNames": [
+              "Rural",
+              "Urban",
+              "Nomadic"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "gen_lat_lng":{
+          "title": "Location",
+          "description": "Click on the map to set a pointer to the location of this project. You can zoom the map in\/out and\/or search for the location in the search field. Please be as precise as possible.",
+          "type":"array"
+        },
+        "gen_emails":{
+          "title": "Contact email addresses",
+          "description": "Click the button below to add email addresses. If you enter more than one email address, the first will be considered your primary contact email.",
+          "type": "array",
+          "items": {
+            "type":"object",
+            "title": "email",
+            "properties": {
+              "typeof":{
+                "type":"string",
+                "title": "Type",
+                "description": "Bookings, information, general, etc."
+    
+              },
+              "your_email":{
+                "type":"string",
+                "title": "Email address"
+              }
+            }
+          }
+        },
+        "terms":{
+          "title": "Terms & Conditions",
+          "description": "<div>To list your ecovillage on this site you must agree to the following terms by checking the box below:<\/div>\r\n<ul>\r\n<li>All data given is, to the best of my knowledge, correct and up to date.<\/li>\r\n<li>Apart from private contact data, I consent to GEN listing this information on its website and sharing it with third parties.<\/li>\r\n<li>GEN, at it's sole discretion, may amend or remove this listing.<\/li>\r\n<li>I will use reasonable efforts to keep this data up to date.<\/li>\r\n<\/ul>",
+          "type":"array",
+          "items": {
+            "type":"string",
+            "enum": [
+              "agreeterms"
+            ],
+            "enumNames":[
+              "I agree to these terms"
+            ]
+          },
+          "uniqueItems": true
+         
+        }
+     }
+    },
+    {
+      "title":"Location & Contact Information",
+      "properties": {
+        "message":{
+          "title": "Location",
+          "description": "",
+          "type":"string"
+        },
+        "gen_address_type":{
+          "title": "Does your community have an address?",
+          "description": "",
+          "type":"array",
+          "items": {
+            "type":"string",
+            "enum": [
+              "public",
+              "private",
+              "approximate",
+              "no"
+            ],
+            "enumNames": [
+              "Yes, it is public",
+              "Yes, but it is private <i class=\"term-description\">(your address will not be listed on this site)<\/i>",
+              "No, but we generally know where it will be <i class=\"term-description\">(please enter your approximate location below)<\/i>",
+              "No, not yet"
+            ]
 
           },
-          "your_email":{
+          "uniqueItems": true
+        },
+        "gen_address":{
+          "title": "Address",
+          "description": "Full address, excluding country.",
+          "type":"string"
+
+        },
+        "gen_tax_country":{
+          "title": "Country",
+          "description": "Where is this project located?",
+          "type":"boolean"
+        },
+        "":{
+          "title": "Contact",
+          "description": "Please enter your ecovillage's contact information below. This information is public and will be listed on our website.",
+          "type":"string"
+        },
+        "gen_tels":{
+          "title": "Telephone numbers",
+          "description": "Click the button below to add telephone numbers. Please enter numbers in full international format beginning with country code, e.g. +44 1234 567 890",
+          "type":"number"
+        },
+        "gen_websites":{
+          "title": "Websites",
+          "description": "Click the button below to add any related websites. Website addresses should include http:\/\/ or https:\/\/",
+          "type":"array",
+          "items": {
             "type":"string",
-            "title": "Email address"
+            "enum": [
+              "title",
+              "url"
+
+            ],
+            "enumNames":[
+              "Title",
+              "URL"
+            ]
+
+          }
+        
+        },
+        "gen_facebook_url":{
+          "title": "Facebook URL",
+          "description": "",
+          "type":"string"
+        },
+        "gen_twitter":{
+          "title": "Twitter handle",
+          "description": "Just your Twitter handle - do not include http or @",
+          "type":"string"
+        }
+      }
+
+    },
+  {
+  "title": "Additional Information",
+  "properties": {
+    "message":{
+      "title": "Languages",
+      "description": "",
+      "type":"string"
+    },
+    "gen_tax_language_main":{
+      "title": "Project Primary Spoken Language",
+      "description": "",
+      "type":"string"
+    },
+    "gen_tax_language_other":{
+      "title": "Other Spoken Languages",
+      "description": "",
+      "type":"string"
+    },
+    "message2":{
+     "title": "Membership & Visitors",
+     "description": "",
+     "type":"string"
+    },
+    "gen_project_members":{
+      "title": "Project members",
+      "description": "How many people live in the ecovillage?",
+      "type":"number"
+    },
+    "gen_tax_new_members":{
+      "title": "New members",
+      "description": "Is your community open to new members?",
+      "type":"boolean",
+      "enum": [
+        "yes",
+        "no",
+        "not"
+      ],
+      "enumNames": [
+        "Yes",
+        "No",
+        "Not currently(but there is a list or possibly in the future)"
+      ]
+    },
+    "gen_tax_visitors":{
+      "title": "Visitors",
+      "description": "Is your community open to visitors?",
+      "type":"boolean",
+      "enum": [
+        "yes",
+        "rarely",
+        "no"
+      ],
+      "enumNames":[
+        "Yes",
+        "Yes,rarely",
+        "No"
+      ]
+    },
+    "gen_project_join_info":{
+      "title": "Joining information",
+      "description": "Please describe what someone should do if they would like to  join your community. <i>(max 2000 characters)<\/i>",
+      "type":"string",
+      "maxLength": 2000
+    },
+    "message3":{
+      "title": "Status",
+      "description": "",
+      "type":"string"
+    },
+    "gen_evolution":{
+      "title": "Status",
+      "description": "",
+      "type":"boolean",
+       "enum": [
+         "aspiring",
+         "established",
+         "disbanded"
+
+       ],
+       "enumNames": [
+         "Aspiring",
+         "Established",
+         "No longer active"
+       ]
+    },
+    "gen_year_start_planing":{
+      "title": "What year did you start planning?",
+      "description": "",
+      "type":"number"
+    },   
+    "gen_year_start":{
+      "title": "What year was your community founded?",
+      "description": "",
+      "type":"number"
+    },
+    "gen_year_end":{
+      "title": "What year did you disband?",
+      "description": "",
+      "type":"number"
+    },
+    "gen_tax_tag":{
+      "title": "Community Keywords",
+      "description": "A list of up to 8 keywords, separated by commas, associated with your community. You can add your own keywords by clicking on the + button.",
+      "type":"array"
+    },
+    "message4":{
+      "title": "Affiliations & Memberships",
+      "description": "",
+      "type":"string"
+    },
+    "gen_posttype_networks":{
+      "title": "Network Memberships",
+      "description": "If you are a member of any networks in our database, select them here.",
+      "type":"array"
+    },
+    "gen_posttype_projects":{
+      "title": "Community Affiliation",
+      "description": "If you are affiliated with any other projects in our database, select them here.",
+      "type":"array"
+    },
+    "gen_member_of":{
+      "title": "Other Affiliations",
+      "description": "If you are a member of any other organizations or networks, enter them here.",
+      "type":"string"
+    }
+
+  }
+  
+  },
+  {
+    "title": "Images & Video",
+    "properties": {
+      "_thumbnail_id":{
+        "title": "Primary Image",
+        "description": "Click the button below to upload. This is your primary image that displays at the top of your listing and in search results.<br><i>Images must be in jpg format, at least 500px wide and no more than 4000px wide. Image file size must be no more than 3MB.<\/i>",
+        "type":"string",
+        "enum": ["button"],
+        "enumNames": ["Add Image"]
+      },
+      "gen_post_header_img_id":{
+        "title": "Header Image",
+        "description": "Click the button below to upload. If uploaded this will be used in the header at the top of your listing's page.<br>\r\n<i>Images must be in jpg format, at least 1500px wide and no more than 4000px wide. 2000px wide and 1000px tall is ideal. Image file size must be no more than 3MB.<\/i>",
+        "type":"string",
+        "enum": ["button"],
+        "enumNames":["Add Image"]
+      },
+      "gen_image_gallery":{
+        "title": "Galeery Images",
+        "description": "Click the button below to upload images. These are images to show what life at your community is like.<br>\r\n<i>Images must be in jpg format, at least 500px wide and no more than 4000px wide. Image file size must be no more than 3MB.<\/i>",
+        "type":"string",
+        "enum": ["button"],
+        "enumNames": ["Upload images"]
+      },
+      "other_images":{
+        "title": "Other Images",
+        "description": "",
+        "type":"string"
+      },
+      "gen_video":{
+        "title": "Videos",
+        "description": "Add your Youtube or Vimeo videos to be displayed on your listing page. The first video listed will be embedded in your listing page, others will be linked to.",
+        "type":"array",
+        "items": {
+          "type":"object",
+          "properties": {
+            "video_type":{
+              "title": "Type",
+              "description": "",
+              "type":"string"
+            },
+            "video_id":{
+              "title": "Video ID",
+              "description": "Just the ID for your video (not the full URL)",
+              "type":"string"
+            },
+            "video_description":{
+              "title": "Description",
+              "description": "Brief description of video (maximum 80 characters, no html)",
+              "type":"string"
+            }
           }
         }
       }
-    },
-    "terms":{
-      "title": "Terms & Conditions",
-      "description": "<div>To list your ecovillage on this site you must agree to the following terms by checking the box below:<\/div>\r\n<ul>\r\n<li>All data given is, to the best of my knowledge, correct and up to date.<\/li>\r\n<li>Apart from private contact data, I consent to GEN listing this information on its website and sharing it with third parties.<\/li>\r\n<li>GEN, at it's sole discretion, may amend or remove this listing.<\/li>\r\n<li>I will use reasonable efforts to keep this data up to date.<\/li>\r\n<\/ul>",
-      "type":"array",
-      "items": {
-        "type":"string",
-        "enum": [
-          "agreeterms"
-        ],
-        "enumNames":[
-          "I agree to these terms"
-        ]
+
+    }
+    
+
+    
+
+  },
+  {
+    "title": "Private information & Preferences",
+    "properties": {
+      "message":{
+        "title": "Private Information",
+        "description": "Information in this section will not be listed publicly and will only be used if we need to contact your ecovillage directly and the public information doesn't work.",
+        "type":"string"
       },
-      "uniqueItems": true
-    },
-   
-    "url": {
-      "title": "URL",
-      "description": "Website URL",
-      "type": "string",
-      "maxLength": 2000,
-      "pattern": "https?://"
-    },
-    "profile_url": {
-      "title": "Profile URL",
-      "description": "Profile URL",
-      "type": "string",
-      "maxLength": 2000,
-      "pattern": "https?://"
-    },
-    "gen_project_url": {
-      "title": "GEN Project URL",
-      "description": "URL of the project page on ecovillage.org",
-      "type": "string",
-      "maxLength": 2000,
-      "pattern": "https?://"
-    },
-    "description": {
-      "title": "Description",
-      "description": "",
-      "type": "string"
-    },
-    "project_types": {
-      "title": "Project types",
-      "description": "",
-      "type": "array"
-    },
-    "community_types": {
-      "title": "Community types",
-      "description": "",
-      "type": "array"
-    },
-    "gen_community_setting": {
-      "title": "Community setting",
-      "description": "",
-      "type": "array"
-    },
-    "country": {
-       "title": "Country",
-       "description": "",
-       "type": "string"
-    },
-    "locality": {
-       "title": "Locality",
-       "description": "A city, town, village, etc.",
-       "type": "string",
-       "pattern": "^.{1,100}$"
-    },
-    "region": {
-       "title": "Region",
-       "description": "A state, county, province, etc.",
-       "type": "string",
-       "pattern": "^.{1,100}$"
-    },
-    "gen_region": {
-       "title": "GEN Region",
-       "description": "The GEN region of this project",
-       "type": "string",
-       "pattern": "^.{1,100}$"
-    },
-    "project_status": {
-       "title": "Project status",
-       "description": "",
-       "type": "string"
-    },
-    "languages_spoken": {
-       "title": "Languages spoken",
-       "type": "array",
-       "pattern": "^.{1,100}$"
-    },
-    "gen_sustainability_dimensions": {
-       "title": "GEN sustainability dimensions",
-       "type": "array"
-    },
-    "gen_project_gen_status": {
-      "title": "GEN membership status",
-      "type": "string"
-    },
-    "visitors_accepted": {
-       "title": "Visitors accepted",
-       "description": "",
-       "type": "string"
-    },
-    "new_members_accepted" : {
-      "title": "New members accepted",
-      "type": "string"
-    },
-    "geolocation": {
-    "title": "Geolocation Coordinates",
-      "description": "The geo-coordinates (latitude & longitude) of the project",
-      "type": "object",
-      "properties": {
-        "lat": {
-          "type": "number",
-          "minimum": -90,
-          "maximum": 90
-        },
-        "lon": {
-          "type": "number",
-          "minimum": -180,
-          "maximum": 180
+      "gen_alt_contact_private":{
+        "title": "Alternative Contact Information",
+        "description": "All fields in this section are required",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name":{
+              "title": "Name",
+              "description": "",
+              "type":"string"
+            },
+            "email":{
+              "title": "Email",
+              "description": "",
+              "type":"string"
+            },
+            "tel": {
+              "title": "Phone",
+              "description": "",
+              "type":"string"
+            }
+          }
         }
       },
-      "required": ["lat", "lon"]
-    }
-  },
-  "required": [
-    "name",
-    "gen_tax_community_type",
-    "gen_tax_community_setting",
-    "gen_lat_lng",
-    "gen_emails",
-    "tems"           
-  ],
-  "metadata": {
-    "creator": {
-      "name": "GENNA Data Sharing Project"
-    },
-    "schema": {
-      "name": "gen_ecovillages_v0.0.1",
-      "version": "0.0.1"
+      "message2":{
+        "title": "Preferences",
+        "description": "",
+        "type":"string"
+      },
+      "gen_book_inclusion":{
+        "title": "Book Inclusion",
+        "description": "Do you want your community to appear in GEN and partner books such as the Communities Directory book?",
+        "type":"boolean",
+        "enum": ["yes", "no"],
+        "enumNames": ["Yes", "No"]
+      },
+      "gen_enable_comments":{
+        "title": "Allow Comments",
+        "description": "Allow public comments and discussion at the bottom of your listing page?",
+        "type":"boolean",
+        "enum": ["yes", "no"],
+        "enumNames":["Yes", "No"]
+      },
+      "author":{
+        "title": "Hide author?",
+        "description": "Select hide to hide your name as the author of this ecovillage",
+        "type":"boolean",
+        "enum": ["show","hide"],
+        "enumNames":["Show", "Hide"]
+      },
+      "creative_commons":{
+        "title": "Creative Commons",
+        "description": "",
+        "type": "string"
+      }
     }
   }
+      ],
+        "required": [
+          "name",
+          "gen_tax_community_type",
+          "gen_tax_community_setting",
+          "gen_lat_lng",
+          "gen_emails",
+          "gen_project_terms", 
+          "type", 
+          "email",
+          "tel",
+          "url",
+          "video_type",
+          "video_id"
+        ],
+        "metadata": {
+          "creator": {
+            "name": "GENNA Data Sharing Project"
+          },
+          "schema": {
+            "name": "gen_ecovillages_v0.0.1",
+            "version": "0.0.1"
+          }
+        }   
+
 }
+  
+  
+
+
+
