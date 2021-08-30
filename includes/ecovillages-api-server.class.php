@@ -149,7 +149,12 @@ class Ecovillages_API_Server {
 			return false;
 		}
 
-		$project = $results[0]->to_array();
+    $post = $results[0];
+
+		$project = $post->to_array();
+
+    $project['image_thumbnail_url'] = get_the_post_thumbnail_url( $post, 'thumbnail' );
+    $project['image_full_url'] = get_the_post_thumbnail_url( $post, 'full' );
 
 		$metas = get_post_meta( $project['ID'] );
 
