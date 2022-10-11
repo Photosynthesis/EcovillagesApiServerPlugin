@@ -35,6 +35,10 @@
     "load_from":"gen_visitors",
     "callback": "Ecovillages_API_Server::reduce_array"
   },
+  "network_membership" : {
+    "load_from":"gen_posttype_networks",
+    "callback": "Ecovillages_API_Server::reduce_array"
+  },
   "new_members_accepted" : {
     "load_from":"gen_new_members",
     "callback": "Ecovillages_API_Server::reduce_array"

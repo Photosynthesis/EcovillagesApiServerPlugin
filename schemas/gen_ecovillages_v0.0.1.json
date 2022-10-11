@@ -97,6 +97,11 @@
        "description": "",
        "type": "string"
     },
+    "network_membership": {
+      "title": "Network Membership",
+      "description": "Network/s that the ecovillage is part of",
+      "type": "array"
+   },
     "new_members_accepted" : {
       "title": "New members accepted",
       "type": "string"
