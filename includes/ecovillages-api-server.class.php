@@ -212,6 +212,16 @@ class Ecovillages_API_Server {
 			);
 		}
 
+		if ( isset( $parameters['network_membership'] ) ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'gen_posttype_networks',
+					'field'    => 'name',
+					'terms'    => array( $parameters['network_membership'] ),
+				),
+			);
+		}
+
 		if ( isset( $parameters['last_validated'] ) ) {
 			$args['date_query'] = array(
 				'column' => 'post_modified',
