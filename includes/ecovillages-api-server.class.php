@@ -213,11 +213,12 @@ class Ecovillages_API_Server {
 		}
 
 		if ( isset( $parameters['network_membership'] ) ) {
-			$args['tax_query'] = array(
+			$network_id = (int) $parameters['network_membership'];
+			$args['meta_query'] = array(
 				array(
-					'taxonomy' => 'gen_posttype_networks',
-					'field'    => 'name',
-					'terms'    => array( $parameters['network_membership'] ),
+					'key' => 'gen_posttype_networks',
+					'value'    => $network_id,
+					'compare' => '=',
 				),
 			);
 		}
