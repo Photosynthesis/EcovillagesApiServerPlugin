@@ -218,7 +218,7 @@ class Ecovillages_API_Server {
 				array(
 					'key' => 'gen_posttype_networks',
 					'value'    => serialize($network_id),
-					'compare' => 'IN',
+					'compare' => 'LIKE',
 				),
 			);
 		}
