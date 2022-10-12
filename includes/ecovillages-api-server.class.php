@@ -216,9 +216,9 @@ class Ecovillages_API_Server {
 			$network_id = (int) $parameters['network_membership'];
 			$args['meta_query'] = array(
 				array(
-					'meta_key' => 'gen_posttype_networks',
-					'meta_value'    => $network_id,
-					'compare' => '=',
+					'key' => 'gen_posttype_networks',
+					'value'    => $network_id,
+					'compare' => 'IN',
 				),
 			);
 		}
