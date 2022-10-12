@@ -217,7 +217,7 @@ class Ecovillages_API_Server {
 			$args['meta_query'] = array(
 				array(
 					'key' => 'gen_posttype_networks',
-					'value'    => serialize($network_id),
+					'value'    => $network_id,
 					'compare' => 'LIKE',
 				),
 			);
